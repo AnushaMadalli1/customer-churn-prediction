@@ -1,0 +1,16 @@
+services:
+  # Backend FastAPI
+  - type: web
+    name: churn-api
+    env: python
+    region: oregon  # or closest
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+
+  # Frontend Streamlit
+  - type: web
+    name: churn-streamlit
+    env: python
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app/app.py --server.port $PORT --server.address 0.0.0.0 --server.enableCORS false --server.enableXsrfProtection false --server.headless true
